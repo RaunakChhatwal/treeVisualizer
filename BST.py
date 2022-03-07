@@ -52,7 +52,7 @@ class BST:
 
         self.h = 1 + int(math.log2(len(A)))
 
-    # uses two stacks to iteratively traverse the binary tree and print each node out
+    # uses a stack to iteratively traverse the binary tree and print each node out
     def visualize(self, screen: pygame.Surface, header):
         w, h = screen.get_size()
         h -= header
@@ -60,13 +60,11 @@ class BST:
         radius = min(w / (2 ** self.h), h / (2 * self.h), 50)
 
         s = [[self.root, (0, 0)]]
-        s2 = [(0, len(self.array))]
         while len(s):
-            curr, curr2 = s[-1][0], s2[-1]
+            curr = s[-1][0]
             i, j = s[-1][1][0], s[-1][1][1]
 
             s.pop()
-            s2.pop()
 
             if curr is None:
                 continue
@@ -84,6 +82,3 @@ class BST:
 
             s.append([curr.right, (i + 1, j * 2 + 1)])
             s.append([curr.left, (i + 1, j * 2)])
-
-            s2.append(((curr2[0] + curr2[1]) // 2 + 1, curr2[1]))
-            s2.append((curr2[0], (curr2[0] + curr2[1]) // 2))
